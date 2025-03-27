@@ -37,6 +37,39 @@ void posicionarNavioVertical(int tabuleiro[TAMANHO][TAMANHO], int linha, int col
     }
 }
 
+// Função para sobrepor a habilidade Cone ao tabuleiro
+void aplicarHabilidadeCone(int tabuleiro[TAMANHO][TAMANHO], int linha, int coluna) {
+    if (linha + 2 < TAMANHO && coluna - 1 >= 0 && coluna + 1 < TAMANHO) {
+        tabuleiro[linha][coluna] = 5;
+        tabuleiro[linha + 1][coluna - 1] = 5;
+        tabuleiro[linha + 1][coluna] = 5;
+        tabuleiro[linha + 1][coluna + 1] = 5;
+        tabuleiro[linha + 2][coluna] = 5;
+    }
+}
+
+// Função para sobrepor a habilidade Cruz ao tabuleiro
+void aplicarHabilidadeCruz(int tabuleiro[TAMANHO][TAMANHO], int linha, int coluna) {
+    if (linha - 1 >= 0) tabuleiro[linha - 1][coluna] = 5;
+    if (linha + 1 < TAMANHO) tabuleiro[linha + 1][coluna] = 5;
+    if (coluna - 1 >= 0) tabuleiro[linha][coluna - 1] = 5;
+    if (coluna + 1 < TAMANHO) tabuleiro[linha][coluna + 1] = 5;
+    tabuleiro[linha][coluna] = 5;
+}
+
+// Função para sobrepor a habilidade Octaedro ao tabuleiro
+void aplicarHabilidadeOctaedro(int tabuleiro[TAMANHO][TAMANHO], int linha, int coluna) {
+    if (linha - 1 >= 0) tabuleiro[linha - 1][coluna] = 5;
+    if (linha + 1 < TAMANHO) tabuleiro[linha + 1][coluna] = 5;
+    if (coluna - 1 >= 0) tabuleiro[linha][coluna - 1] = 5;
+    if (coluna + 1 < TAMANHO) tabuleiro[linha][coluna + 1] = 5;
+    if (linha - 1 >= 0 && coluna - 1 >= 0) tabuleiro[linha - 1][coluna - 1] = 5;
+    if (linha - 1 >= 0 && coluna + 1 < TAMANHO) tabuleiro[linha - 1][coluna + 1] = 5;
+    if (linha + 1 < TAMANHO && coluna - 1 >= 0) tabuleiro[linha + 1][coluna - 1] = 5;
+    if (linha + 1 < TAMANHO && coluna + 1 < TAMANHO) tabuleiro[linha + 1][coluna + 1] = 5;
+    tabuleiro[linha][coluna] = 5;
+}
+
 int main() {
     int tabuleiro[TAMANHO][TAMANHO];
     
@@ -47,9 +80,13 @@ int main() {
     posicionarNavioHorizontal(tabuleiro, 2, 3);
     posicionarNavioVertical(tabuleiro, 5, 7);
     
+    // Aplica habilidades
+    aplicarHabilidadeCone(tabuleiro, 1, 5);
+    aplicarHabilidadeCruz(tabuleiro, 4, 4);
+    aplicarHabilidadeOctaedro(tabuleiro, 7, 2);
+    
     // Exibe o tabuleiro
     exibirTabuleiro(tabuleiro);
     
     return 0;
 }
-
